@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ladner Advisory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --dark: #111111;
+      --mid: #1c1c1c;
+      --white: #ffffff;
+      --off-white: #e0dcd4;
+      --light: #f6f6f6;
+      --light-mid: #eeeeee;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --text-muted: #888888;
+      --accent-dark: #111111;
+      --accent-light: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--white);
+      color: var(--text-dark);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 60px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: #444444;
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      padding-bottom: 4px;
+      display: block;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-dark);
+    }
+
+    .nav-links a.active {
+      color: var(--text-dark);
+    }
+
+    .nav-links li::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--text-dark);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links li:has(a.active)::after,
+    .nav-links li:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      padding: 0 30px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 28px;
+      display: block;
+      opacity: 0.7;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.4);
+      margin: 0 auto 30px;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 580px;
+      margin: 0 auto 48px;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-hero:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    /* ─── INTRO SECTION ─── */
+    .intro-section {
+      background: var(--white);
+    }
+
+    .intro {
+      padding: 100px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .intro-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .intro h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .intro p {
+      color: var(--text-body);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      margin-bottom: 14px;
+    }
+
+    .rule-line {
+      width: 40px;
+      height: 2px;
+      background: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    /* ─── PILLARS SECTION ─── */
+    .pillars {
+      background: var(--black);
+      padding: 100px 60px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-header .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .pillar-card {
+      background: var(--black);
+      padding: 50px 40px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .pillar-card:hover {
+      background: #0f0f0f;
+    }
+
+    .pillar-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .pillar-card h3 {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .pillar-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+
+    /* ─── QUOTE SECTION ─── */
+    .quote-section {
+      padding: 110px 60px;
+      text-align: center;
+      background: var(--light);
+      position: relative;
+    }
+
+    .quote-section::before {
+      content: '\201C';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14rem;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    blockquote {
+      max-width: 780px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    blockquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    blockquote cite {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: var(--black);
+      padding: 90px 60px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 50px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer img { height: 40px; width: auto; }
+
+    footer p {
+      font-size: 0.7rem;
+      color: #555555;
+      letter-spacing: 0.1em;
+    }
+
+    footer nav {
+      position: static;
+      background: none;
+      border: none;
+      backdrop-filter: none;
+      padding: 0;
+    }
+
+    footer nav ul { display: flex; gap: 30px; list-style: none; }
+
+    footer nav a {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555555;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer nav a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .intro { grid-template-columns: 1fr; gap: 40px; padding: 70px 24px; }
+      .pillars { padding: 70px 24px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .quote-section { padding: 80px 24px; }
+      .cta-section { padding: 70px 24px; }
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-logo">
+      <a href="index.html"><img src="assets/Logo_Smita.png" alt="Ladner Advisory" /></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Strategic Advisory &amp; Board Leadership</span>
+      <h1>Navigating Complexity.<br />Creating Value.</h1>
+      <div class="hero-divider"></div>
+      <p>Ladner Advisory provides senior-level guidance to companies across industries — from early-stage ventures to mature enterprises — bringing decades of international legal, financial, and board experience to every engagement.</p>
+      <a href="about.html" class="btn-hero">Discover Our Approach</a>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro-section">
+    <div class="intro">
+      <div>
+        <span class="intro-label">Who We Are</span>
+        <h2>A Partner at Every Stage of Growth</h2>
+        <div class="rule-line"></div>
+        <p>Ladner Advisory is a boutique advisory firm built on a foundation of deep expertise in corporate law, private equity, and international business development. We work closely with founders, boards, and investors to deliver clarity where it matters most.</p>
+        <p>Our work spans across sectors including biotech, blockchain, financial services, construction, and trading — bringing a cross-industry perspective that drives smarter decisions.</p>
+      </div>
+      <div>
+        <span class="intro-label">Our Focus</span>
+        <h2>Expertise Across Borders &amp; Industries</h2>
+        <div class="rule-line"></div>
+        <p>Rooted in Europe and connected globally, Ladner Advisory has a unique vantage point spanning Swiss, European, and transatlantic markets. We draw on a network built over decades to open doors and unlock opportunities for our clients.</p>
+        <p>Whether advising on governance, structuring investments, or scaling businesses, we bring seasoned judgment and direct, candid counsel to every engagement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars">
+    <div class="section-header">
+      <span class="label">What We Do</span>
+      <h2>Our Core Capabilities</h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <span class="pillar-number">01</span>
+        <h3>Board Advisory</h3>
+        <p>We serve as professional board members and advisors, bringing independent judgment, governance expertise, and strategic oversight to companies across sectors and stages.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-number">02</span>
+        <h3>Corporate &amp; Legal Strategy</h3>
+        <p>Drawing on a distinguished legal career at the highest levels of Swiss and international practice, we provide strategic counsel on corporate structuring, transactions, and regulatory matters.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-number">03</span>
+        <h3>Private Equity &amp; Investment</h3>
+        <p>With direct experience managing European investments for a San Francisco-based private equity firm, we guide clients through complex capital decisions and cross-border investment structures.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <blockquote>
+      <p>"One of Switzerland's most influential business lawyers — bringing clarity, conviction, and international reach to every board and boardroom."</p>
+      <cite>— Bilanz, Leading Swiss Business Publication</cite>
+    </blockquote>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Work Together?</h2>
+    <p>We welcome conversations with founders, executives, and investors who value candid, experienced counsel.</p>
+    <a href="contact.html" class="btn">Get in Touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/Logo_Smita.png" alt="Ladner Advisory" />
+    <p>&copy; 2026 Ladner Advisory. All rights reserved.</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

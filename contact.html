@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Ladner Advisory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --white: #ffffff;
+      --light: #f6f6f6;
+      --text-dark: #1a1a1a;
+      --text-body: #4a4a4a;
+      --text-muted: #888888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--white);
+      color: var(--text-dark);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 60px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-logo img { height: 52px; width: auto; }
+
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+
+    .nav-links li { position: relative; }
+
+    .nav-links a {
+      color: #444444;
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      padding-bottom: 4px;
+      display: block;
+    }
+
+    .nav-links a:hover { color: var(--text-dark); }
+    .nav-links a.active { color: var(--text-dark); }
+
+    .nav-links li::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--text-dark);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links li:has(a.active)::after,
+    .nav-links li:hover::after { transform: scaleX(1); }
+
+    /* ─── PAGE HEADER (dark) ─── */
+    .page-header {
+      padding-top: 140px;
+      padding-bottom: 90px;
+      text-align: center;
+      background: var(--black);
+    }
+
+    .page-header .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .header-divider {
+      width: 50px;
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+      margin: 0 auto 24px;
+    }
+
+    .page-header p {
+      max-width: 580px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+    }
+
+    /* ─── CONTACT LAYOUT (white) ─── */
+    .contact-outer {
+      background: var(--white);
+    }
+
+    .contact-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ─── CONTACT INFO ─── */
+    .contact-info .label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .rule-line {
+      width: 40px;
+      height: 2px;
+      background: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .contact-info p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.9;
+      margin-bottom: 36px;
+    }
+
+    .contact-details { list-style: none; }
+
+    .contact-details li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .detail-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: var(--text-dark);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .detail-text .detail-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .detail-text a,
+    .detail-text span {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .detail-text a:hover { color: var(--text-dark); }
+
+    /* ─── CONTACT FORM ─── */
+    .contact-form-wrap {
+      background: var(--light);
+      padding: 48px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.12);
+      color: var(--text-dark);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(0,0,0,0.25);
+      font-size: 0.85rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(0,0,0,0.4);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-group select option {
+      background: var(--white);
+      color: var(--text-dark);
+    }
+
+    .btn-submit {
+      display: inline-block;
+      width: 100%;
+      padding: 15px 40px;
+      background: var(--text-dark);
+      border: 1px solid var(--text-dark);
+      color: var(--white);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      margin-top: 6px;
+    }
+
+    .btn-submit:hover {
+      background: transparent;
+      color: var(--text-dark);
+    }
+
+    .form-disclaimer {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 50px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer img { height: 40px; width: auto; }
+    footer p { font-size: 0.7rem; color: #555555; letter-spacing: 0.1em; }
+
+    footer nav {
+      position: static;
+      background: none;
+      border: none;
+      backdrop-filter: none;
+      padding: 0;
+    }
+
+    footer nav ul { display: flex; gap: 30px; list-style: none; }
+
+    footer nav a {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555555;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer nav a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .contact-section { grid-template-columns: 1fr; gap: 50px; padding: 70px 24px; }
+      .contact-form-wrap { padding: 30px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-logo">
+      <a href="index.html"><img src="assets/Logo_Smita.png" alt="Ladner Advisory" /></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER (dark) -->
+  <header class="page-header">
+    <span class="eyebrow">We'd love to hear from you</span>
+    <h1>Get in Touch</h1>
+    <div class="header-divider"></div>
+    <p>Whether you're looking for strategic counsel, board advisory, or simply want to explore how we can work together — we welcome the conversation.</p>
+  </header>
+
+  <!-- CONTACT SECTION (white) -->
+  <section class="contact-outer">
+    <div class="contact-section">
+
+      <!-- LEFT: CONTACT INFO -->
+      <div class="contact-info">
+        <span class="label">Contact</span>
+        <h2>Let's Start a Conversation</h2>
+        <div class="rule-line"></div>
+        <p>Ladner Advisory works with founders, executives, and investors across Europe and beyond. Reach out to discuss how we can support your organisation.</p>
+
+        <ul class="contact-details">
+          <li>
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="detail-text">
+              <span class="detail-label">Location</span>
+              <span>Zurich, Switzerland</span>
+            </div>
+          </li>
+          <li>
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="detail-text">
+              <span class="detail-label">Email</span>
+              <a href="mailto:info@ladneradvisory.com">info@ladneradvisory.com</a>
+            </div>
+          </li>
+          <li>
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="detail-text">
+              <span class="detail-label">Phone</span>
+              <a href="tel:+41000000000">+41 (0) 00 000 00 00</a>
+            </div>
+          </li>
+          <li>
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="detail-text">
+              <span class="detail-label">Response Time</span>
+              <span>Within 2 business days</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="contact-form-wrap">
+        <div class="form-title">Send a Message</div>
+        <div class="form-subtitle">All enquiries are treated with strict confidentiality.</div>
+
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Your first name" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Your last name" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="company">Company / Organisation</label>
+              <input type="text" id="company" name="company" placeholder="Your company" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+              <option value="" disabled selected>Select a topic</option>
+              <option value="board">Board Advisory</option>
+              <option value="legal">Corporate &amp; Legal Strategy</option>
+              <option value="pe">Private Equity &amp; Investment</option>
+              <option value="general">General Enquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Please describe how we can help you..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p class="form-disclaimer">By submitting this form, you agree that your information will be used solely to respond to your enquiry. We do not share or sell your data.</p>
+        </form>
+
+        <div id="successMsg" style="display:none; padding: 22px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1); margin-top: 20px;">
+          <p style="color: #2a7a2a; font-size: 0.88rem; letter-spacing: 0.04em;">Thank you for reaching out. We will be in touch within two business days.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/Logo_Smita.png" alt="Ladner Advisory" />
+    <p>&copy; 2026 Ladner Advisory. All rights reserved.</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
